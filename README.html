@@ -1,0 +1,145 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>aviread16bitcol.m: Read high color AVI video file</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-09-30"><meta name="DC.source" content="tpe0efbea7_d6d2_4286_8965_6227f17b48ef.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1><tt>aviread16bitcol.m</tt>: Read high color AVI video file</h1><!--introduction--><p>Author: Kelly Kearney</p><p>This repository includes the code for the <tt>aviread16bitcol.m</tt> Matlab function, along with all dependent functions required to run it.</p><p>This function reads in a 16-bit color (high color) avi movie file.  This format, used by some older Microsoft codecs, uses 16 bits per pixel: 5 bits for red, blue, and green, and one bit unused (the lesser used 5-6-5 format is not currently supported by this function).  The input and output variables are consistant with those used by Matlab's old aviread function.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Getting started</a></li><li><a href="#2">Syntax</a></li><li><a href="#3">Description</a></li><li><a href="#4">Contributions</a></li></ul></div><h2 id="1">Getting started</h2><p><b>Prerequisites</b></p><p>This function requires Matlab R2014a or <b>*earlier</b>*.  It relies on the now-deprecated <tt>aviread</tt> function, which has since been replaced by the <tt>VideoReader</tt> function.  I no longer work with any AVI files that use this old format, so have no plans to update this function to be compatible with newer versions of Matlab.</p><p><b>Downloading and installation</b></p><p>This code can be downloaded from <a href="https://github.com/kakearney/example-pkg/">Github</a> or the <a href="http://www.mathworks.com/matlabcentral/fileexchange/9314-aviread16bitcol">MatlabCentral File Exchange</a>.  The File Exchange entry is updated daily from the GitHub repository.</p><p><b>Matlab Search Path</b></p><p>The following folders need to be added to your Matlab Search path (via <tt>addpath</tt>, <tt>pathtool</tt>, etc.):</p><pre class="language-matlab">aviread16bitcol-pkg/aviread16bitcol
+</pre><h2 id="2">Syntax</h2><pre>mov = aviread16bitcol(filename)
+mov = aviread16bitcol(filename, index)</pre><h2 id="3">Description</h2><p><tt>mov = aviread16bitcol(filename)</tt> reads the video frame data in the .avi file <tt>filename</tt> into a matlab movie matrix <tt>mov</tt>.</p><p><tt>mov = aviread16bitcol(filenameme, index)</tt> reads only the specific frames indicated by <tt>index</tt>.</p><h2 id="4">Contributions</h2><p>Community contributions to this package are welcome!</p><p>To report bugs, please submit <a href="https://github.com/kakearney/aviread16bitcol-pkg/issues">an issue</a> on GitHub and include:</p><div><ul><li>your operating system</li><li>your version of Matlab and all relevant toolboxes (type <tt>ver</tt> at the Matlab command line to get this info)</li><li>code/data to reproduce the error or buggy behavior, and the full text of any error messages received</li></ul></div><p>Please also feel free to submit enhancement requests, or to send pull requests (via GitHub) for bug fixes or new features.</p><p>I do monitor the MatlabCentral FileExchange entry for any issues raised in the comments, but would prefer to track issues on GitHub.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% |aviread16bitcol.m|: Read high color AVI video file
+% Author: Kelly Kearney
+%
+% This repository includes the code for the |aviread16bitcol.m| Matlab function,
+% along with all dependent functions required to run it. 
+%
+% This function reads in a 16-bit color (high color) avi movie file.  This
+% format, used by some older Microsoft codecs, uses 16 bits per pixel: 5
+% bits for red, blue, and green, and one bit unused (the lesser used 5-6-5
+% format is not currently supported by this function).  The input and
+% output variables are consistant with those used by Matlab's old aviread
+% function. 
+% 
+%% Getting started
+%
+% *Prerequisites*
+%
+% This function requires Matlab R2014a or **earlier**.  It relies on the
+% now-deprecated |aviread| function, which has since been replaced by the
+% |VideoReader| function.  I no longer work with any AVI files that use
+% this old format, so have no plans to update this function to be
+% compatible with newer versions of Matlab.
+%
+% *Downloading and installation*
+%
+% This code can be downloaded from <https://github.com/kakearney/example-pkg/ Github>
+% or the
+% <http://www.mathworks.com/matlabcentral/fileexchange/9314-aviread16bitcol
+% MatlabCentral File Exchange>.  The File Exchange entry is updated daily
+% from the GitHub repository.   
+%
+% *Matlab Search Path*
+%
+% The following folders need to be added to your Matlab Search path (via
+% |addpath|, |pathtool|, etc.):
+%
+%   aviread16bitcol-pkg/aviread16bitcol
+
+%% Syntax
+%
+%  mov = aviread16bitcol(filename)
+%  mov = aviread16bitcol(filename, index)
+%
+%% Description
+%
+% |mov = aviread16bitcol(filename)| reads the video frame data in the .avi
+% file |filename| into a matlab movie matrix |mov|.
+%
+% |mov = aviread16bitcol(filenameme, index)| reads only the specific frames
+% indicated by |index|.
+%
+%% Contributions
+%
+% Community contributions to this package are welcome!
+% 
+% To report bugs, please submit
+% <https://github.com/kakearney/aviread16bitcol-pkg/issues an issue> on GitHub and
+% include:  
+% 
+% * your operating system
+% * your version of Matlab and all relevant toolboxes (type |ver| at the Matlab command line to get this info)  
+% * code/data to reproduce the error or buggy behavior, and the full text of any error messages received 
+% 
+% Please also feel free to submit enhancement requests, or to send pull
+% requests (via GitHub) for bug fixes or new features. 
+% 
+% I do monitor the MatlabCentral FileExchange entry for any issues raised
+% in the comments, but would prefer to track issues on GitHub. 
+% 
+
+
+##### SOURCE END #####
+--></body></html>
